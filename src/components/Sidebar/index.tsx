@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom';
+
 import { GoHomeFill } from 'react-icons/go';
 import { FaPlus } from 'react-icons/fa6';
 import { LuLibrary } from 'react-icons/lu';
@@ -7,20 +9,20 @@ function Sidebar() {
         <aside className='flex flex-col gap-8 p-6 bg-purple-900 w-64 text-neutral-100'>
             <h1 className='text-3xl'>Studier</h1>
 
-            <button type='button' className='flex items-center gap-6 text-2xl'>
+            <Link to={'/'} className='flex items-center gap-6 text-2xl'>
                 <GoHomeFill/>
                 Home
-            </button>
+            </Link>
 
-            <button type='button' className='flex items-center gap-6 text-2xl'>
+            <Link to={'/novo-quiz'} className='flex items-center gap-6 text-2xl'>
                 <FaPlus/>
                 Novo
-            </button>
+            </Link>
 
-            <button type='button' className='flex items-center gap-6 text-2xl text-nowrap'>
+            <Link to={'/meus-quizzes'} className='flex items-center gap-6 text-2xl text-nowrap'>
                 <LuLibrary/>
                 Meus quizzes
-            </button>
+            </Link>
         </aside>
     );
 }

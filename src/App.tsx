@@ -1,7 +1,11 @@
+import AppRouter from 'routes';
+
 function App() {
     return (
-        <h1>Studier</h1>
-    )
+        <div className='flex h-full'>
+            <AppRouter/>
+        </div>
+    );
 }
 
 export default App;
