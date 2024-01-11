@@ -4,11 +4,11 @@ function Card({ name, questions, id }: IQuiz) {
     return (
         <div className='bg-slate-800 flex flex-col p-4 rounded gap-6 w-full'>
             <div>
-                <h4 className='text-2xl'>{name}</h4>
+                <h4 className='text-2xl overflow-hidden text-ellipsis'>{name}</h4>
                 <p>{questions.length} pergunta</p>
             </div>
 
-            <span className='p-2 text-center rounded bg-neutral-500 text-nowrap overflow-hidden'>
+            <span className='p-2 text-center rounded bg-neutral-500 text-nowrap overflow-hidden text-ellipsis'>
                 {questions[0].title}
             </span>
 

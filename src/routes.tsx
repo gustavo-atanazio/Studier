@@ -11,7 +11,7 @@ function AppRouter() {
         <BrowserRouter>
             <Sidebar/>
 
-            <main className='bg-neutral-800 w-full text-neutral-200 py-6 px-10 overflow-scroll'>
+            <main className='bg-neutral-800 w-full h-full text-neutral-200 py-6 px-10 overflow-scroll overflow-x-hidden'>
                 <Routes>
                     <Route path='/' element={<Home/>}/>
                     <Route path='/novo-quiz' element={<NewQuiz/>}/>
