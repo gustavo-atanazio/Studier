@@ -31,9 +31,11 @@ function Home() {
         <>
             <h2 className='text-4xl mb-6'>Padrão do sistema</h2>
 
-            {defaultQuizzes.map(quiz => (
-                <Card {...quiz} key={quiz.id}/>
-            ))}
+            <div className='grid grid-cols-3 gap-6'>
+                {defaultQuizzes.map(quiz => (
+                    <Card {...quiz} key={quiz.id}/>
+                ))}
+            </div>
         </>
     );
 }
