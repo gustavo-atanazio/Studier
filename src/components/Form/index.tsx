@@ -70,10 +70,10 @@ function Form() {
     }
 
     return (
-        <form onSubmit={handleSubmit}>
+        <form className='flex flex-col items-center gap-8' onSubmit={handleSubmit}>
             <input
                 type='text'
-                className='mb-6 w-full outline-0 py-2 px-4 text-neutral-600 rounded'
+                className='w-full outline-0 py-2 px-4 text-neutral-600 rounded'
                 placeholder='Nome do quiz'
                 value={name}
                 onChange={event => setName(event.target.value)}
@@ -104,7 +104,9 @@ function Form() {
                 }
             </Grid>
 
-            <button type='submit'>Criar</button>
+            <button className='w-full max-w-96 bg-purple-800 py-2 rounded text-2xl' type='submit'>
+                Criar
+            </button>
         </form>
     );
 }
