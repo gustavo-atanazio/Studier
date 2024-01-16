@@ -1,3 +1,5 @@
+import { useLocation } from 'react-router-dom';
+
 import Grid from 'components/Grid';
 import Card from 'components/Card';
 
@@ -32,6 +34,7 @@ const defaultQuizzes: IQuiz[] = [
 ];
 
 function Home() {
+    const { pathname } = useLocation();
     const { quizzes } = useQuizzesContext();
 
     return (
@@ -40,7 +43,7 @@ function Home() {
 
             <Grid>
                 {defaultQuizzes.map(quiz => (
-                    <Card {...quiz} key={quiz.id}/>
+                    <Card {...quiz} path={pathname} key={quiz.id}/>
                 ))}
             </Grid>
 
@@ -50,7 +53,7 @@ function Home() {
                 ? (
                     <Grid>
                         {quizzes.map(quiz => (
-                            <Card {...quiz} key={quiz.id}/>
+                            <Card {...quiz} path={pathname} key={quiz.id}/>
                         ))}
                     </Grid>
                 )
