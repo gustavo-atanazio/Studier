@@ -1,7 +1,14 @@
 import { FaRegCirclePlay } from 'react-icons/fa6';
+import { FiEdit } from 'react-icons/fi';
+import { RiDeleteBinLine } from 'react-icons/ri';
+
 import IQuiz from 'types/IQuiz';
 
-function Card({ name, questions, id }: IQuiz) {
+interface Props extends IQuiz {
+    path: string;
+}
+
+function Card({ name, questions, id, path }: Props) {
     return (
         <div className='bg-slate-800 flex flex-col p-4 rounded gap-6 w-full'>
             <div>
@@ -13,13 +20,37 @@ function Card({ name, questions, id }: IQuiz) {
                 {questions[0].title}
             </span>
 
-            <button
-                className='flex gap-2 justify-center items-center bg-green-600 p-2 rounded'
-                type='button'
-            >
-                Começar
-                <FaRegCirclePlay size={20}/>
-            </button>
+            {path === '/'
+                ? (
+                    <button
+                        className='flex gap-2 justify-center items-center bg-green-600 p-2 rounded'
+                        type='button'
+                    >
+                        Começar
+                        <FaRegCirclePlay size={20}/>
+                    </button>
+                )
+
+                : (
+                    <div className='flex flex-col gap-2'>
+                        <button
+                            className='flex gap-2 justify-center items-center bg-neutral-700 p-2 w-full rounded'
+                            type='button'
+                        >
+                            Editar
+                            <FiEdit size={20}/>
+                        </button>
+
+                        <button
+                            className='flex gap-2 justify-center items-center bg-red-600 p-2 w-full rounded'
+                            type='button'
+                        >
+                            Deletar
+                            <RiDeleteBinLine size={20}/>
+                        </button>
+                    </div>
+                )
+            }
         </div>
     );
 }
