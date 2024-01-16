@@ -2,17 +2,19 @@ import { createContext, useContext, useState } from 'react';
 import IQuiz from 'types/IQuiz';
 import IQuestion from 'types/IQuestion';
 
-const initialValue = {
-    quizzes: [],
-    setQuizzes: () => {},
-    createQuiz: () => {}
-};
-
 interface QuizContextType {
     quizzes: IQuiz[];
     setQuizzes: React.Dispatch<React.SetStateAction<IQuiz[]>>;
     createQuiz: (name: string, questions: IQuestion[]) => void;
+    deleteQuiz: (id: string) => void;
 }
+
+const initialValue: QuizContextType = {
+    quizzes: [],
+    setQuizzes: () => {},
+    createQuiz: () => {},
+    deleteQuiz: () => {}
+};
 
 const QuizzesContext = createContext<QuizContextType>(initialValue);
 
@@ -29,9 +31,14 @@ function QuizzesContextProvider({ children }: { children: React.ReactNode }) {
         setQuizzes(prevState => [...prevState, quiz]);
     }
 
+    function deleteQuiz(id: string) {
+        const updatedQuizzes = quizzes.filter(quiz => quiz.id !== id);
+        setQuizzes(updatedQuizzes);
+    }
+
     const value = {
         quizzes, setQuizzes,
-        createQuiz
+        createQuiz, deleteQuiz
     };
 
     return (
