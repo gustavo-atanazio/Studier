@@ -4,9 +4,13 @@ import { FaPlus } from 'react-icons/fa6';
 import Grid from 'components/Grid';
 import FormCard from './FormCard';
 
+import { useQuizzesContext } from 'context/Quizzes';
 import IQuestion from 'types/IQuestion';
 
 function Form() {
+    const { createQuiz } = useQuizzesContext();
+
+    const [name, setName] = useState('');
     const [questions, setQuestions] = useState<IQuestion[]>([]);
     const maxQuestions = 10;
 
@@ -59,9 +63,21 @@ function Form() {
         });
     }
 
+    function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+        event.preventDefault();
+
+        createQuiz(name, questions);
+    }
+
     return (
-        <form>
-            <input type='text' className='mb-6 w-full' placeholder='Nome do quiz'/>
+        <form onSubmit={handleSubmit}>
+            <input
+                type='text'
+                className='mb-6 w-full outline-0 py-2 px-4 text-neutral-600 rounded'
+                placeholder='Nome do quiz'
+                value={name}
+                onChange={event => setName(event.target.value)}
+            />
 
             <Grid>
                 {questions.map(question => (
@@ -79,7 +95,7 @@ function Form() {
                 {questions.length < maxQuestions &&
                     <button
                         onClick={addQuestion}
-                        className='flex flex-col items-center bg-neutral-500 p-2 border-2 border-dashed border-neutral-400 rounded'
+                        className='flex flex-col items-center justify-center gap-2 bg-neutral-500 p-2 border-2 border-dashed border-neutral-400 rounded'
                         type='button'
                     >
                         <FaPlus size={25}/>
@@ -87,6 +103,8 @@ function Form() {
                     </button>
                 }
             </Grid>
+
+            <button type='submit'>Criar</button>
         </form>
     );
 }

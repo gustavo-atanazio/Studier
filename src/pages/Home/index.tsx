@@ -1,5 +1,7 @@
 import Grid from 'components/Grid';
 import Card from 'components/Card';
+
+import { useQuizzesContext } from 'context/Quizzes';
 import IQuiz from 'types/IQuiz';
 
 const defaultQuizzes: IQuiz[] = [
@@ -30,6 +32,8 @@ const defaultQuizzes: IQuiz[] = [
 ];
 
 function Home() {
+    const { quizzes } = useQuizzesContext();
+
     return (
         <>
             <h2 className='text-4xl mb-6'>Padrão do sistema</h2>
@@ -39,6 +43,22 @@ function Home() {
                     <Card {...quiz} key={quiz.id}/>
                 ))}
             </Grid>
+
+            <h2 className='text-4xl mb-6 mt-6'>Meus Quizzes</h2>
+
+            {quizzes.length > 0
+                ? (
+                    <Grid>
+                        {quizzes.map(quiz => (
+                            <Card {...quiz} key={quiz.id}/>
+                        ))}
+                    </Grid>
+                )
+
+                : (
+                    <p>Nenhum quiz ainda!</p>
+                )
+            }
         </>
     );
 }
