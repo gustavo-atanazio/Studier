@@ -10,7 +10,7 @@ function FormCard({ title, options, response, onTitleChange, onOptionChange, onR
     return (
         <div className='flex flex-col gap-4 p-2 bg-neutral-500 rounded text-neutral-900'>
             <input
-                className='w-full outline-0'
+                className='w-full outline-0 py-1 px-2 rounded-sm'
                 type='text'
                 placeholder='Título'
                 value={title}
@@ -20,7 +20,7 @@ function FormCard({ title, options, response, onTitleChange, onOptionChange, onR
             <div className='flex flex-col gap-2'>
                 {options.map((option, index) => (
                     <input
-                        className='w-full outline-0'
+                        className='w-full outline-0 py-1 px-2 rounded-sm'
                         type='text'
                         placeholder={`Opção ${index + 1}`}
                         value={option}
@@ -31,7 +31,7 @@ function FormCard({ title, options, response, onTitleChange, onOptionChange, onR
             </div>
 
             <input
-                className='w-full outline-0'
+                className='w-full outline-0 py-1 px-2 rounded-sm'
                 type='text'
                 placeholder='Resposta'
                 value={response}
