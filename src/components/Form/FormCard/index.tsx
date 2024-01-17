@@ -1,20 +1,20 @@
-import IQuestion from 'types/IQuestion';
+import { UseFormRegister } from 'react-hook-form';
+import { FormValues } from '../index';
 
-interface Props extends IQuestion {
-    onTitleChange: (title: string) => void;
-    onOptionChange: (index: number, value: string) => void;
-    onResponseChange: (response: string) => void;
+interface Props {
+    options: string[];
+    id: number;
+    register: UseFormRegister<FormValues>;
 }
 
-function FormCard({ title, options, response, onTitleChange, onOptionChange, onResponseChange }: Props) {
+function FormCard({ options, id, register }: Props) {
     return (
         <div className='flex flex-col gap-4 p-2 bg-neutral-500 rounded text-neutral-900'>
             <input
                 className='w-full outline-0 py-1 px-2 rounded-sm'
                 type='text'
                 placeholder='Título'
-                value={title}
-                onChange={event => onTitleChange(event.target.value)}
+                {...register(`questions.${id}.title`)}
             />
 
             <div className='flex flex-col gap-2'>
@@ -23,8 +23,7 @@ function FormCard({ title, options, response, onTitleChange, onOptionChange, onR
                         className='w-full outline-0 py-1 px-2 rounded-sm'
                         type='text'
                         placeholder={`Opção ${index + 1}`}
-                        value={option}
-                        onChange={event => onOptionChange(index, event.target.value)}
+                        {...register(`questions.${id}.options.${index}`)}
                         key={index}
                     />
                 ))}
@@ -34,8 +33,7 @@ function FormCard({ title, options, response, onTitleChange, onOptionChange, onR
                 className='w-full outline-0 py-1 px-2 rounded-sm'
                 type='text'
                 placeholder='Resposta'
-                value={response}
-                onChange={event => onResponseChange(event.target.value)}
+                {...register(`questions.${id}.response`)}
             />
         </div>
     );

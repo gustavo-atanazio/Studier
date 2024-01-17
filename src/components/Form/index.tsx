@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useFieldArray, useForm } from 'react-hook-form';
 import { FaPlus } from 'react-icons/fa6';
 
 import Grid from 'components/Grid';
@@ -7,92 +7,61 @@ import FormCard from './FormCard';
 import { useQuizzesContext } from 'context/Quizzes';
 import IQuestion from 'types/IQuestion';
 
-function Form() {
-    const { createQuiz } = useQuizzesContext();
+export interface FormValues {
+    name: string;
+    questions: IQuestion[];
+}
 
-    const [name, setName] = useState('');
-    const [questions, setQuestions] = useState<IQuestion[]>([]);
+function Form() {
+    const { register, handleSubmit, control } = useForm<FormValues>({
+        defaultValues: {
+            name: '',
+            questions: []
+        }
+    });
+
+    const { fields, append } = useFieldArray({
+        control,
+        name: 'questions'
+    });
+
+    const { createQuiz } = useQuizzesContext();
     const maxQuestions = 10;
 
     function addQuestion() {
-        if (questions.length < maxQuestions) {
-            setQuestions([
-                ...questions,
-                {
-                    title: '',
-                    options: ['', '', '', ''],
-                    response: '',
-                    id: crypto.randomUUID()
-                }
-            ]);
+        if (fields.length < maxQuestions) {
+            append({
+                title: '',
+                options: ['', '', '', ''],
+                response: ''
+            });
         }
     }
 
-    function updateQuestionTitle(title: string, id: string) {
-        setQuestions(prevState => {
-            const updatedQuestions = prevState.map(question =>
-                question.id === id ? { ...question, title } : question
-            );
-
-            return updatedQuestions;
-        });
-    }
-
-    function updateOption(optionIndex: number, value: string, id: string) {
-        setQuestions(prevState => {
-            const updatedQuestions = prevState.map(question => 
-                question.id === id ? {
-                    ...question,
-                    options: question.options.map((option, index) => 
-                        index === optionIndex ? value : option
-                    )
-                } : question
-            );
-
-            return updatedQuestions;
-        });
-    }
-
-    function updateResponse(response: string, id: string) {
-        setQuestions(prevState => {
-            const updatedQuestions = prevState.map(question => 
-                question.id === id ? { ...question, response } : question    
-            );
-
-            return updatedQuestions;
-        });
-    }
-
-    function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
-        event.preventDefault();
-
-        createQuiz(name, questions);
+    function onSubmit(data: FormValues) {
+        createQuiz(data.name, data.questions);
     }
 
     return (
-        <form className='flex flex-col items-center gap-8' onSubmit={handleSubmit}>
+        <form className='flex flex-col items-center gap-8' onSubmit={handleSubmit(onSubmit)}>
             <input
                 type='text'
                 className='w-full outline-0 py-2 px-4 text-neutral-600 rounded'
                 placeholder='Nome do quiz'
-                value={name}
-                onChange={event => setName(event.target.value)}
+                {...register('name')}
             />
 
             <Grid>
-                {questions.map(question => (
+                {fields.map((question, index) => (
                     <FormCard
-                        {...question}
-
-                        onTitleChange={title => updateQuestionTitle(title, question.id)}
-                        onOptionChange={(optionIndex, value) => updateOption(optionIndex, value, question.id)}
-                        onResponseChange={response => updateResponse(response, question.id)}
-                        
-                        key={question.id}
+                        options={question.options}
+                        id={index}
+                        register={register}
+                        key={index}
                     />
                 ))}
 
-                {questions.length < maxQuestions &&
+                {fields.length < maxQuestions &&
                     <button
                         onClick={addQuestion}
                         className='flex flex-col items-center justify-center gap-2 bg-neutral-500 p-2 border-2 border-dashed border-neutral-400 rounded'
