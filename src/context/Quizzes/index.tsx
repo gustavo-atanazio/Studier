@@ -6,6 +6,7 @@ interface QuizContextType {
     quizzes: IQuiz[];
     setQuizzes: React.Dispatch<React.SetStateAction<IQuiz[]>>;
     createQuiz: (name: string, questions: IQuestion[]) => void;
+    editQuiz: ({ name, questions, id }: IQuiz) => void;
     deleteQuiz: (id: string) => void;
 }
 
@@ -13,6 +14,7 @@ const initialValue: QuizContextType = {
     quizzes: [],
     setQuizzes: () => {},
     createQuiz: () => {},
+    editQuiz: () => {},
     deleteQuiz: () => {}
 };
 
@@ -31,6 +33,16 @@ function QuizzesContextProvider({ children }: { children: React.ReactNode }) {
         setQuizzes(prevState => [...prevState, quiz]);
     }
 
+    function editQuiz({ name, questions, id }: IQuiz) {
+        setQuizzes(prevState => {
+            const updatedQuizzes = prevState.map(quiz =>
+                quiz.id === id ? { ...quiz, name, questions } : quiz   
+            );
+
+            return updatedQuizzes;
+        });
+    }
+
     function deleteQuiz(id: string) {
         const updatedQuizzes = quizzes.filter(quiz => quiz.id !== id);
         setQuizzes(updatedQuizzes);
@@ -38,7 +50,7 @@ function QuizzesContextProvider({ children }: { children: React.ReactNode }) {
 
     const value = {
         quizzes, setQuizzes,
-        createQuiz, deleteQuiz
+        createQuiz, editQuiz, deleteQuiz
     };
 
     return (
