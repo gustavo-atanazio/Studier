@@ -1,4 +1,5 @@
 import { useFieldArray, useForm } from 'react-hook-form';
+import { toast } from 'react-toastify';
 import { FaPlus } from 'react-icons/fa6';
 
 import Grid from 'components/Grid';
@@ -40,10 +41,11 @@ function Form() {
 
     function onSubmit(data: FormValues) {
         createQuiz(data.name, data.questions);
+        toast.success('Quiz criado com sucesso!');
     }
 
     return (
-        <form className='flex flex-col items-center gap-8' onSubmit={handleSubmit(onSubmit)}>
+        <form className='flex flex-col gap-8' onSubmit={handleSubmit(onSubmit)}>
             <input
                 type='text'
                 className='w-full outline-0 py-2 px-4 text-neutral-600 rounded'
@@ -73,7 +75,7 @@ function Form() {
                 }
             </Grid>
 
-            <button className='w-full max-w-96 bg-purple-800 py-2 rounded text-2xl' type='submit'>
+            <button className='w-full max-w-96 self-center bg-purple-800 py-2 rounded text-2xl' type='submit'>
                 Criar
             </button>
         </form>
