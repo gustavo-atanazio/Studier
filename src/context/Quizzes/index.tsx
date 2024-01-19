@@ -1,4 +1,6 @@
-import { createContext, useContext, useState } from 'react';
+import { createContext, useContext, useEffect, useState } from 'react';
+
+import { getFromLocalStorage, updateLocalStorage } from 'utils/localStorage';
 import IQuiz from 'types/IQuiz';
 import IQuestion from 'types/IQuestion';
 
@@ -21,7 +23,7 @@ const initialValue: QuizContextType = {
 const QuizzesContext = createContext<QuizContextType>(initialValue);
 
 function QuizzesContextProvider({ children }: { children: React.ReactNode }) {
-    const [quizzes, setQuizzes] = useState<IQuiz[]>([]);
+    const [quizzes, setQuizzes] = useState<IQuiz[]>(getFromLocalStorage('QUIZZES') || []);
 
     function createQuiz(name: string, questions: IQuestion[]) {
         const quiz = {
@@ -52,6 +54,10 @@ function QuizzesContextProvider({ children }: { children: React.ReactNode }) {
         quizzes, setQuizzes,
         createQuiz, editQuiz, deleteQuiz
     };
+
+    useEffect(() => {
+        updateLocalStorage('QUIZZES', quizzes);
+    }, [quizzes]);
 
     return (
         <QuizzesContext.Provider value={value}>
