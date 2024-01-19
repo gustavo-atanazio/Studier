@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { useFieldArray, useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 import { FaPlus } from 'react-icons/fa6';
@@ -13,8 +14,11 @@ export interface FormValues {
     questions: IQuestion[];
 }
 
-function Form() {
-    const { register, handleSubmit, control } = useForm<FormValues>({
+function Form({ quizID }: { quizID?: string }) {
+    const { quizzes, editQuiz, createQuiz } = useQuizzesContext();
+    const maxQuestions = 10;
+
+    const { register, handleSubmit, control, setValue } = useForm<FormValues>({
         defaultValues: {
             name: '',
             questions: []
@@ -25,9 +29,6 @@ function Form() {
         control,
         name: 'questions'
     });
-
-    const { createQuiz } = useQuizzesContext();
-    const maxQuestions = 10;
 
     function addQuestion() {
         if (fields.length < maxQuestions) {
@@ -40,9 +41,25 @@ function Form() {
     }
 
     function onSubmit(data: FormValues) {
-        createQuiz(data.name, data.questions);
-        toast.success('Quiz criado com sucesso!');
+        if (quizID) {
+            editQuiz({ ...data, id: quizID });
+            toast.success('Quiz editado com sucesso!');
+        } else {
+            createQuiz(data.name, data.questions);
+            toast.success('Quiz criado com sucesso!');
+        }
     }
+
+    useEffect(() => {
+        if (quizID) {
+            const quiz = quizzes.find(quiz => quiz.id === quizID);
+
+            if (quiz) {
+                setValue('name', quiz.name);
+                setValue('questions', quiz.questions);
+            }
+        }
+    }, []);
 
     return (
         <form className='flex flex-col gap-8' onSubmit={handleSubmit(onSubmit)}>
@@ -76,7 +93,7 @@ function Form() {
             </Grid>
 
             <button className='w-full max-w-96 self-center bg-purple-800 py-2 rounded text-2xl' type='submit'>
-                Criar
+                {quizID ? 'Editar' : 'Criar'}
             </button>
         </form>
     );
