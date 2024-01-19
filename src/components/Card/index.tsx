@@ -28,7 +28,7 @@ function Card({ name, questions, id, path }: Props) {
             {path === '/'
                 ? (
                     <button
-                        className='flex gap-2 justify-center items-center bg-green-600 p-2 rounded'
+                        className='flex gap-2 justify-center items-center bg-green-600 p-2 rounded outline-0'
                         type='button'
                     >
                         Começar
@@ -39,7 +39,7 @@ function Card({ name, questions, id, path }: Props) {
                 : (
                     <div className='flex flex-col gap-2'>
                         <button
-                            className='flex gap-2 justify-center items-center bg-neutral-700 p-2 w-full rounded'
+                            className='flex gap-2 justify-center items-center bg-neutral-700 p-2 w-full rounded outline-0'
                             type='button'
                             onClick={() => openModal(id)}
                         >
@@ -48,7 +48,7 @@ function Card({ name, questions, id, path }: Props) {
                         </button>
 
                         <button
-                            className='flex gap-2 justify-center items-center bg-red-600 p-2 w-full rounded'
+                            className='flex gap-2 justify-center items-center bg-red-600 p-2 w-full rounded outline-0'
                             type='button'
                             onClick={() => deleteQuiz(id)}
                         >
