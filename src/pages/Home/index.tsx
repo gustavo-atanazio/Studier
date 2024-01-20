@@ -4,34 +4,7 @@ import Grid from 'components/Grid';
 import Card from 'components/Card';
 
 import { useQuizzesContext } from 'context/Quizzes';
-import IQuiz from 'types/IQuiz';
-
-const defaultQuizzes: IQuiz[] = [
-    {
-        name: 'Matemática',
-        questions: [
-            {
-                title: 'Quanto é 2 + 2?',
-                options: ['1', '2', '3', '4'],
-                response: '4',
-                id: crypto.randomUUID()
-            }
-        ],
-        id: crypto.randomUUID()
-    },
-    {
-        name: 'Ciências',
-        questions: [
-            {
-                title: 'Quantos planetas tem no sistema solar?',
-                options: ['10', '1000', '25', '8'],
-                response: '8',
-                id: crypto.randomUUID()
-            }
-        ],
-        id: crypto.randomUUID()
-    }
-];
+import defaultQuizzes from './defaultQuizzes';
 
 function Home() {
     const { pathname } = useLocation();
