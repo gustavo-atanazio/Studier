@@ -1,3 +1,4 @@
+import { useMemo } from 'react';
 import { FaRegCirclePlay } from 'react-icons/fa6';
 import { FiEdit } from 'react-icons/fi';
 import { RiDeleteBinLine } from 'react-icons/ri';
@@ -13,6 +14,10 @@ interface Props extends IQuiz {
 function Card({ name, questions, id, path }: Props) {
     const { deleteQuiz } = useQuizzesContext();
     const { openModal } = useModalContext();
+
+    const PlayIcon = useMemo(() => <FaRegCirclePlay size={20}/>, []);
+    const EditIcon = useMemo(() => <FiEdit size={20}/>, []);
+    const DeleteIcon = useMemo(() => <RiDeleteBinLine size={20}/>, []);
 
     return (
         <div className='bg-slate-800 flex flex-col p-4 rounded gap-6 w-full'>
@@ -32,7 +37,7 @@ function Card({ name, questions, id, path }: Props) {
                         type='button'
                     >
                         Começar
-                        <FaRegCirclePlay size={20}/>
+                        {PlayIcon}
                     </button>
                 )
 
@@ -44,7 +49,7 @@ function Card({ name, questions, id, path }: Props) {
                             onClick={() => openModal(id)}
                         >
                             Editar
-                            <FiEdit size={20}/>
+                            {EditIcon}
                         </button>
 
                         <button
@@ -53,7 +58,7 @@ function Card({ name, questions, id, path }: Props) {
                             onClick={() => deleteQuiz(id)}
                         >
                             Deletar
-                            <RiDeleteBinLine size={20}/>
+                            {DeleteIcon}
                         </button>
                     </div>
                 )
