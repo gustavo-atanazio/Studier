@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useFieldArray, useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 import { FaPlus } from 'react-icons/fa6';
@@ -15,6 +16,7 @@ export interface FormValues {
 }
 
 function Form({ quizID }: { quizID?: string }) {
+    const navigate = useNavigate();
     const { quizzes, editQuiz, createQuiz } = useQuizzesContext();
     const maxQuestions = 10;
 
@@ -47,6 +49,7 @@ function Form({ quizID }: { quizID?: string }) {
         } else {
             createQuiz(data.name, data.questions);
             toast.success('Quiz criado com sucesso!');
+            navigate('/');
         }
     }
 
