@@ -1,16 +1,21 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import App from './App.tsx';
+
 import { QuizzesContextProvider } from 'context/Quizzes/index.tsx';
+import { GameContextProvider } from 'context/Game/index.tsx';
 import { ModalContextProvider } from 'context/Modal/index.tsx';
+
+import App from './App.tsx';
 import './index.css';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
     <React.StrictMode>
         <QuizzesContextProvider>
-            <ModalContextProvider>
-                <App />
-            </ModalContextProvider>
+            <GameContextProvider>
+                <ModalContextProvider>
+                    <App />
+                </ModalContextProvider>
+            </GameContextProvider>
         </QuizzesContextProvider>
     </React.StrictMode>,
 );
