@@ -1,10 +1,13 @@
 import { useMemo } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { FaRegCirclePlay } from 'react-icons/fa6';
 import { FiEdit } from 'react-icons/fi';
 import { RiDeleteBinLine } from 'react-icons/ri';
 
 import { useQuizzesContext } from 'context/Quizzes';
 import { useModalContext } from 'context/Modal';
+import { useGameContext } from 'context/Game';
+
 import IQuiz from 'types/IQuiz';
 
 interface Props extends IQuiz {
@@ -14,6 +17,8 @@ interface Props extends IQuiz {
 function Card({ name, questions, id, path }: Props) {
     const { deleteQuiz } = useQuizzesContext();
     const { openModal } = useModalContext();
+    const { setQuiz } = useGameContext();
+    const navigate = useNavigate();
 
     const PlayIcon = useMemo(() => <FaRegCirclePlay size={20}/>, []);
     const EditIcon = useMemo(() => <FiEdit size={20}/>, []);
@@ -35,6 +40,10 @@ function Card({ name, questions, id, path }: Props) {
                     <button
                         className='flex gap-2 justify-center items-center bg-green-600 p-2 rounded outline-0'
                         type='button'
+                        onClick={() => {
+                            setQuiz({ name, questions, id });
+                            navigate('/game');
+                        }}
                     >
                         Começar
                         {PlayIcon}
