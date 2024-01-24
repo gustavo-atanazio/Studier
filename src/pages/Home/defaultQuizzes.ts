@@ -52,7 +52,7 @@ const defaultQuizzes: IQuiz[] = [
             {
                 title: 'Qual é o ácido presente no estômago humano?',
                 options: ['Ácido acético', 'Ácido sulfúrico', 'Ácido clorídrico', 'Ácido cítrico'],
-                response: ''
+                response: 'Ácido clorídrico'
             }
         ],
         id: crypto.randomUUID()
