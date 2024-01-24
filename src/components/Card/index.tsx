@@ -17,7 +17,7 @@ interface Props extends IQuiz {
 function Card({ name, questions, id, path }: Props) {
     const { deleteQuiz } = useQuizzesContext();
     const { openModal } = useModalContext();
-    const { setQuiz } = useGameContext();
+    const { dispatch } = useGameContext();
     const navigate = useNavigate();
 
     const PlayIcon = useMemo(() => <FaRegCirclePlay size={20}/>, []);
@@ -41,7 +41,7 @@ function Card({ name, questions, id, path }: Props) {
                         className='flex gap-2 justify-center items-center bg-green-600 p-2 rounded outline-0'
                         type='button'
                         onClick={() => {
-                            setQuiz({ name, questions, id });
+                            dispatch({ type: 'START_GAME', quiz: { name, questions, id } });
                             navigate('/game');
                         }}
                     >
