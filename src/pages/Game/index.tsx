@@ -54,9 +54,10 @@ function Game() {
                             {options?.map((option, index) => (
                                 <div
                                     className={`
-                                        flex-grow basis-64 
+                                        flex-grow basis-96 
                                         p-2 text-xl text-center cursor-pointer rounded
                                         bg-slate-800
+                                        hover:scale-105 transition-transform
                                         ${hasAnswered && 'pointer-events-none'}
                                     `}
                                     onClick={() => dispatch({ type: 'CHECK_ANSWER', answer: option })}
@@ -68,11 +69,11 @@ function Game() {
                         </div>
 
                         <button
-                            className={
-                                `text-xl w-1/2 
-                                bg-gray-700 ${hasAnswered && 'bg-green-600'}
-                                transition-colors rounded p-2 self-center outline-0`
-                            }
+                            className={`
+                                text-xl w-1/2 
+                                ${hasAnswered ? 'bg-gray-600' : 'bg-gray-700/30'}
+                                transition-colors rounded p-2 self-center outline-0
+                            `}
                             onClick={() => {
                                 if (isLastQuestion) dispatch({ type: 'GAME_OVER' });
                                 else dispatch({ type: 'NEXT_QUESTION' });
