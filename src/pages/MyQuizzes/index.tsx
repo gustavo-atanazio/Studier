@@ -1,4 +1,5 @@
 import { useLocation } from 'react-router-dom';
+import { AnimatePresence } from 'framer-motion';
 
 import Grid from 'components/Grid';
 import Card from 'components/Card';
@@ -15,9 +16,16 @@ function MyQuizzes() {
             {quizzes.length > 0
                 ? (
                     <Grid>
-                        {quizzes.map(quiz => (
-                            <Card {...quiz} path={pathname} key={quiz.id}/>
-                        ))}
+                        <AnimatePresence mode='popLayout'>
+                            {quizzes.map((quiz, index) => (
+                                <Card
+                                    {...quiz}
+                                    renderDelay={index}
+                                    path={pathname}
+                                    key={quiz.id}
+                                />
+                            ))}
+                        </AnimatePresence>
                     </Grid>
                 )
 

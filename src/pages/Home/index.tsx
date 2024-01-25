@@ -15,8 +15,13 @@ function Home() {
             <h2 className='text-4xl mb-6'>Padrão do sistema</h2>
 
             <Grid>
-                {defaultQuizzes.map(quiz => (
-                    <Card {...quiz} path={pathname} key={quiz.id}/>
+                {defaultQuizzes.map((quiz, index) => (
+                    <Card
+                        {...quiz}
+                        renderDelay={index}
+                        path={pathname}
+                        key={quiz.id}
+                    />
                 ))}
             </Grid>
 
@@ -25,8 +30,13 @@ function Home() {
             {quizzes.length > 0
                 ? (
                     <Grid>
-                        {quizzes.map(quiz => (
-                            <Card {...quiz} path={pathname} key={quiz.id}/>
+                        {quizzes.map((quiz, index) => (
+                            <Card
+                                {...quiz}
+                                renderDelay={index}
+                                path={pathname}
+                                key={quiz.id}
+                            />
                         ))}
                     </Grid>
                 )

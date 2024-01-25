@@ -1,5 +1,6 @@
 import { useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { motion } from 'framer-motion';
 import { FaRegCirclePlay } from 'react-icons/fa6';
 import { FiEdit } from 'react-icons/fi';
 import { RiDeleteBinLine } from 'react-icons/ri';
@@ -11,21 +12,29 @@ import { useGameContext } from 'context/Game';
 import IQuiz from 'types/IQuiz';
 
 interface Props extends IQuiz {
+    renderDelay: number;
     path: string;
 }
 
-function Card({ name, questions, id, path }: Props) {
+function Card({ name, questions, id, renderDelay, path }: Props) {
+    const navigate = useNavigate();
     const { deleteQuiz } = useQuizzesContext();
     const { openModal } = useModalContext();
     const { dispatch } = useGameContext();
-    const navigate = useNavigate();
 
-    const PlayIcon = useMemo(() => <FaRegCirclePlay size={20}/>, []);
-    const EditIcon = useMemo(() => <FiEdit size={20}/>, []);
-    const DeleteIcon = useMemo(() => <RiDeleteBinLine size={20}/>, []);
+    const PlayIcon = useMemo(() => <FaRegCirclePlay size={20} />, []);
+    const EditIcon = useMemo(() => <FiEdit size={20} />, []);
+    const DeleteIcon = useMemo(() => <RiDeleteBinLine size={20} />, []);
 
     return (
-        <div className='bg-slate-800 flex flex-col p-4 rounded gap-6 w-full'>
+        <motion.div
+            className='bg-slate-800 flex flex-col p-4 rounded gap-6 w-full'
+            initial={{ scale: 0.5, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            exit={{ scale: 0, opacity: 0 }}
+            transition={{ duration: 0.2, delay: renderDelay / 10 }}
+            layout
+        >
             <div>
                 <h4 className='text-2xl overflow-hidden text-ellipsis'>{name}</h4>
                 <p>{questions.length} pergunta{questions.length > 1 ? 's' : ''}</p>
@@ -72,7 +81,7 @@ function Card({ name, questions, id, path }: Props) {
                     </div>
                 )
             }
-        </div>
+        </motion.div>
     );
 }
 
