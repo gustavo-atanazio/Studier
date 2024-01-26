@@ -8,6 +8,8 @@ import Grid from 'components/Grid';
 import FormCard from './FormCard';
 
 import { useQuizzesContext } from 'context/Quizzes';
+import { useModalContext } from 'context/Modal';
+
 import IQuestion from 'types/IQuestion';
 
 export interface FormValues {
@@ -18,9 +20,10 @@ export interface FormValues {
 function Form({ quizID }: { quizID?: string }) {
     const navigate = useNavigate();
     const { quizzes, editQuiz, createQuiz } = useQuizzesContext();
+    const { closeModal } = useModalContext();
     const maxQuestions = 10;
 
-    const { register, handleSubmit, control, setValue } = useForm<FormValues>({
+    const { register, handleSubmit, control, setValue, formState: { errors } } = useForm<FormValues>({
         defaultValues: {
             name: '',
             questions: []
@@ -46,6 +49,7 @@ function Form({ quizID }: { quizID?: string }) {
         if (quizID) {
             editQuiz({ ...data, id: quizID });
             toast.success('Quiz editado com sucesso!');
+            closeModal();
         } else {
             createQuiz(data.name, data.questions);
             toast.success('Quiz criado com sucesso!');
@@ -68,9 +72,12 @@ function Form({ quizID }: { quizID?: string }) {
         <form className='flex flex-col gap-8' onSubmit={handleSubmit(onSubmit)}>
             <input
                 type='text'
-                className='w-full outline-0 py-2 px-4 text-neutral-600 rounded'
+                className={`
+                    w-full outline-0 py-2 px-4 text-neutral-600 rounded
+                    ${errors.name && 'outline outline-2 outline-red-600 placeholder:text-red-600'}
+                `}
                 placeholder='Nome do quiz'
-                {...register('name')}
+                {...register('name', { required: true })}
             />
 
             <Grid>
@@ -79,6 +86,7 @@ function Form({ quizID }: { quizID?: string }) {
                         options={question.options}
                         id={index}
                         register={register}
+                        errors={errors}
                         key={index}
                     />
                 ))}
