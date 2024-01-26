@@ -1,8 +1,10 @@
 import { useLocation } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion';
 
+import Modal from 'lib/react-modal';
 import Grid from 'components/Grid';
 import Card from 'components/Card';
+
 import { useQuizzesContext } from 'context/Quizzes';
 
 function MyQuizzes() {
@@ -16,7 +18,7 @@ function MyQuizzes() {
             {quizzes.length > 0
                 ? (
                     <Grid>
-                        <AnimatePresence mode='popLayout'>
+                        <AnimatePresence>
                             {quizzes.map((quiz, index) => (
                                 <Card
                                     {...quiz}
@@ -33,6 +35,8 @@ function MyQuizzes() {
                     <p>Nenhum quiz ainda!</p>
                 )
             }
+
+            <Modal/>
         </>
     );
 }

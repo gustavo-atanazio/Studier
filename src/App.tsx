@@ -1,5 +1,4 @@
 import Toast from 'lib/react-toastify';
-import Modal from 'lib/react-modal';
 import AppRouter from 'routes';
 
 function App() {
@@ -8,7 +7,6 @@ function App() {
             <AppRouter/>
 
             <Toast/>
-            <Modal/>
         </div>
     );
 }
