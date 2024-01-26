@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { memo, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 
 import { GoHomeFill } from 'react-icons/go';
@@ -32,4 +32,4 @@ function Sidebar() {
     );
 }
 
-export default Sidebar;
+export default memo(Sidebar);
