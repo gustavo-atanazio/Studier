@@ -10,10 +10,10 @@ interface Props {
 
 function FormCard({ options, id, register, errors }: Props) {
     return (
-        <div className='flex flex-col gap-4 p-2 bg-neutral-500 rounded text-neutral-900'>
+        <div className='flex flex-col gap-4 p-2 bg-neutral-700 rounded text-neutral-300'>
             <input
                 className={`
-                    w-full outline-0 py-1 px-2 rounded-sm
+                    w-full outline-0 py-1 px-2 rounded-sm bg-neutral-500 placeholder:text-neutral-300
                     ${errors.questions && errors.questions[id]?.title &&
                         'outline outline-2 outline-red-600 placeholder:text-red-600'}
                 `}
@@ -26,7 +26,7 @@ function FormCard({ options, id, register, errors }: Props) {
                 {options.map((option, index) => (
                     <input
                         className={`
-                            w-full outline-0 py-1 px-2 rounded-sm
+                            w-full outline-0 py-1 px-2 rounded-sm bg-neutral-500 placeholder:text-neutral-300
                             ${errors.questions && errors.questions[id]?.options && errors.questions[id]?.options![index] &&
                                 'outline outline-2 outline-red-600 placeholder:text-red-600'}
                         `}
@@ -40,7 +40,7 @@ function FormCard({ options, id, register, errors }: Props) {
 
             <input
                 className={`
-                    w-full outline-0 py-1 px-2 rounded-sm
+                    w-full outline-0 py-1 px-2 rounded-sm bg-neutral-500 placeholder:text-neutral-300
                     ${errors.questions && errors.questions[id]?.response &&
                         'outline outline-2 outline-red-600 placeholder:text-red-600'}
                 `}

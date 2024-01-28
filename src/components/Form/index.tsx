@@ -73,7 +73,8 @@ function Form({ quizID }: { quizID?: string }) {
             <input
                 type='text'
                 className={`
-                    w-full outline-0 py-2 px-4 text-neutral-600 rounded
+                    w-full outline-0 py-2 px-4 rounded
+                    bg-neutral-500 text-neutral-300 placeholder:text-neutral-300
                     ${errors.name && 'outline outline-2 outline-red-600 placeholder:text-red-600'}
                 `}
                 placeholder='Nome do quiz'
@@ -94,7 +95,7 @@ function Form({ quizID }: { quizID?: string }) {
                 {fields.length < maxQuestions &&
                     <button
                         onClick={addQuestion}
-                        className='flex flex-col items-center justify-center gap-2 bg-neutral-500 p-2 border-2 border-dashed border-neutral-400 rounded'
+                        className='flex flex-col items-center justify-center gap-2 bg-neutral-600 p-2 border-2 border-dashed border-neutral-400 rounded'
                         type='button'
                     >
                         <FaPlus size={25}/>
