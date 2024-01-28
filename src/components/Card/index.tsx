@@ -28,7 +28,7 @@ function Card({ name, questions, id, renderDelay, path }: Props) {
 
     return (
         <motion.div
-            className='bg-slate-800 flex flex-col p-4 rounded gap-6 w-full'
+            className='bg-slate-800 flex flex-col p-4 justify-between rounded gap-6 w-full'
             initial={{ scale: 0.5, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             exit={{ scale: 0, opacity: 0 }}
