@@ -23,7 +23,7 @@ function FormCard({ options, id, register, errors }: Props) {
             />
 
             <div className='flex flex-col gap-2'>
-                {options.map((option, index) => (
+                {options.map((_option, index) => (
                     <input
                         className={`
                             w-full outline-0 py-1 px-2 rounded-sm bg-neutral-500 placeholder:text-neutral-300
